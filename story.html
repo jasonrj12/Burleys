@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Our Story - Burley's</title>
+  <meta name="description" content="Discover Burley's Sri Lanka story: how we bring bold Sri Lankan flavours to modern fried chicken." />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="icon" href="images/logo.png" type="image/x-icon">
+  <style>
+    :root{
+      --bg:#fa9f1b;
+      --card:#ffffff;
+      --muted:#2d2d2d;
+      --text:#111111;
+      --brand:#fa9f1b;
+      --accent:#e8890a;
+      --radius:18px;
+      --shadow:0 10px 30px rgba(0,0,0,.15);
+    }
+
+/* Prevent text selection */
+.story-section{
+    user-select: none;       /* Standard */
+    -webkit-user-select: none; /* Safari/Chrome */
+    -moz-user-select: none;   /* Firefox */
+    -ms-user-select: none;    /* IE/Edge */
+}
+
+    *{ box-sizing: border-box; }
+    body{ margin:0; font-family: Inter, sans-serif; background:var(--bg); color:var(--text); }
+    a{ color:inherit; text-decoration:none; }
+    header{ padding:16px 0; border-bottom:1px solid rgba(0,0,0,.08); background:var(--bg); position:sticky; top:0; z-index:50; }
+    .container{ width:min(1100px,92vw); margin-inline:auto; }
+    .nav{ display:flex; justify-content:space-between; align-items:center; }
+    .logo{ font-weight:800; font-size:20px; color:#111; } .logo b{ color:#fff; }
+    .nav a.btn{ padding:8px 16px; border-radius:999px; border:1px solid rgba(0,0,0,.12); transition:.25s; font-weight:600; font-size:14px; color:#111; background:rgba(255,255,255,.9); }
+    .nav a.btn:hover{ border-color:#111; box-shadow:0 0 0 6px rgba(0,0,0,.15); background:#fff; }
+
+    .story-section{ padding:80px 0; display:flex; flex-wrap:wrap; gap:40px; }
+    .story-text{ flex:1 1 500px; }
+    h1{ font-size: clamp(36px, 4vw, 56px); margin:0 0 16px; color:#111; font-weight:800; }
+    p.lead{ color:var(--muted); font-size:18px; line-height:1.6; }
+    .story-card{ background:var(--card); border-radius:var(--radius); padding:24px; box-shadow:var(--shadow); flex:1 1 400px; border:1px solid rgba(0,0,0,.08); }
+    .tag{ display:inline-block; font-size:11px; font-weight:700; text-transform:uppercase; color:#fff; background:#111; padding:6px 10px; border-radius:999px; }
+    ul{ padding-left:18px; color:var(--muted); }
+    ul li{ margin-bottom:8px; }
+    footer{ padding:40px 0; border-top:1px solid rgba(0,0,0,.08); color:var(--muted); font-size:14px; }
+    footer a{ color:#111; font-weight:500; }
+    footer a:hover{ text-decoration:underline; }
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header>
+    <div class="container nav">
+      <div class="logo">
+        <img src="images/logo.png" alt="Burley's Logo" style="height:60px; vertical-align:middle;">
+      </div>
+      <nav>
+        <a href="index.html" class="btn">Home</a>
+        <a href="menu.html" class="btn">Menu</a>
+        <a href="story.html" class="btn">Our Story</a>
+        <a href="locations.html" class="btn">Our Locations</a>
+      </nav>
+    </div>
+  </header>
+
+
+  <!-- Our Story Section -->
+  <section class="container story-section">
+    <div class="story-text">
+      <div class="tag">Our Story</div>
+      <h1>From Island Spice to Crispy, Golden Joy</h1>
+      <p class="lead">Burley's began with a simple promise: take the boldness of Sri Lankan flavour — fragrant Ceylon spices, lime, garlic, curry leaves — and build a modern fried chicken experience around it. No shortcuts. No compromise. Just craveable crunch with soul.</p>
+      <ul>
+        <li>Signature Ceylon spice blend inspired by island kitchens</li>
+        <li>Fried-to-order for peak crunch</li>
+        <li>Community-first mindset — sourcing & hiring locally</li>
+      </ul>
+    </div>
+    <div class="story-card" aria-label="Story Highlights">
+      <p>Burley's is a 100% Halal, Sri Lanka based High-End Fast Food Restaurant founded in 2020, It was a huge transition for us from the Fashion Industry to the Food Industry with no experience at all, We've been testing out recipes & planning menus ever since and it was after much hard work and anticipation that Burley's Officially Opened its doors to the public on the 21st of February, 2022, The menu at Burley's was carefully curated aiming to bring a new level of flavour and quality, To Our Customers. It was merely the passion we had for food that turned into a flaming desire that turned into reality...</p>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <div class="container" style="display:flex; justify-content:space-between; flex-wrap:wrap;">
+      <div>© <span id="year"></span> Burley's. All rights reserved.</div>
+      <div style="display:flex; gap:12px;"><a href="https://www.instagram.com/burleysfoods?igsh=MTltNWJ5c2h2ZDZ1ZQ==">Instagram</a>·<a href="https://www.facebook.com/share/1Um5CkKLTN/">Facebook</a>·<a href="https://www.tiktok.com/@burleysfoods?_t=ZS-8zOsx7wzO8V&_r=1">TikTok</a></div>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+
+    // 2. Featured Menu Carousel
+const carouselTrack = document.querySelector('.carousel-track');
+const carouselItems = document.querySelectorAll('.carousel-item');
+const prevBtn = document.getElementById('carouselPrev');
+const nextBtn = document.getElementById('carouselNext');
+let carouselIndex = 0;
+let mobileCarouselInterval = null;
+
+function isMobile() {
+  return window.innerWidth <= 600;
+}
+  </script>
+
+</body>
+</html>

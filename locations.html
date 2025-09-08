@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Locations - Burley's</title>
+    <link rel="icon" type="image/x-icon" href="images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        @import "~@fortawesome/fontawesome-free/css/all.min.css";
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f8f8;
+        }
+
+        /* Navigation (placeholder - use your existing nav styles) */
+        nav {
+            background: #fa9f1b;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .nav-links a {
+            color: #3f1e27;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+        }
+
+        .dropdown {
+            position: relative;
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #fa9f1b 0%, #ff8c00 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+
+        .hero h1 {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Location Toggle Buttons */
+        .location-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin: 2rem auto;
+            max-width: 600px;
+        }
+
+        .location-btn {
+            flex: 1;
+            padding: 1rem 2rem;
+            background: white;
+            color: #3f1e27;
+            border: 2px solid #fa9f1b;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .location-btn:hover {
+            background: #fa9f1b;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(250, 159, 27, 0.3);
+        }
+
+        .location-btn.active {
+            background: #fa9f1b;
+            color: white;
+        }
+
+        /* Locations Container */
+        .locations-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        .location-card {
+            display: none;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            margin-bottom: 2rem;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .location-card.active {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .location-info {
+            padding: 3rem;
+        }
+
+        .location-name {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 2.5rem;
+            color: #3f1e27;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-icon {
+            width: 24px;
+            height: 24px;
+            margin-right: 1rem;
+            color: #fa9f1b;
+            flex-shrink: 0;
+        }
+
+        .info-content h3 {
+            color: #3f1e27;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+        }
+
+        .info-content p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .hours-table {
+            width: 100%;
+            margin-top: 0.5rem;
+        }
+
+        .hours-table tr {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.3rem 0;
+            border-bottom: 1px dotted #ddd;
+        }
+
+        .hours-table tr:last-child {
+            border-bottom: none;
+        }
+
+        .map-container {
+            position: relative;
+            height: 100%;
+            min-height: 500px;
+            background: #f0f0f0;
+        }
+
+        .map-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            position: relative;
+        }
+
+        .map-placeholder::before {
+            content: '📍';
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* Features Section */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 2px solid #f0f0f0;
+        }
+
+        .feature {
+            text-align: center;
+        }
+
+        .feature-icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 1rem;
+            background: #fa9f1b;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5rem;
+        }
+
+        .feature h4 {
+            color: #3f1e27;
+            margin-bottom: 0.5rem;
+        }
+
+        .feature p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        /* Action Buttons */
+        .action-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .btn-primary {
+            background: #fa9f1b;
+            color: white;
+            border: 2px solid #fa9f1b;
+        }
+
+        .btn-primary:hover {
+            background: #ff8c00;
+            border-color: #ff8c00;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(250, 159, 27, 0.3);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #3f1e27;
+            border: 2px solid #3f1e27;
+        }
+
+        .btn-secondary:hover {
+            background: #3f1e27;
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            background: #fa9f1b;
+            color: #3f1e27;
+            padding: 2rem 1rem 1rem 1rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .location-toggle {
+                flex-direction: column;
+            }
+
+            .location-card.active {
+                grid-template-columns: 1fr;
+            }
+
+            .location-info {
+                padding: 2rem;
+            }
+
+            .location-name {
+                font-size: 1.8rem;
+            }
+
+            .action-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .top-burger-image img {
+                max-width: 250px;
+            }
+        }
+        .action-buttons a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;          /* space between icon & text */
+  padding: 10px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.btn-primary i {
+  color: #fff;
+}
+
+.btn-secondary i {
+  color: #fff;
+}
+/* Prevent text selection */
+.hero{
+    user-select: none;       /* Standard */
+    -webkit-user-select: none; /* Safari/Chrome */
+    -moz-user-select: none;   /* Firefox */
+    -ms-user-select: none;    /* IE/Edge */
+}
+
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="menu.html">Menu</a></li>
+            <li><a href="story.html">Our Story</a></li>
+            <li><a href="locations.html">Our Locations</a></li>
+        </ul>
+    </nav>
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>Visit Our Locations</h1>
+        <p>Experience authentic flavors at our two convenient locations in Colombo</p>
+    </div>
+
+    <!-- Location Toggle -->
+ <div class="location-toggle">
+    <button class="location-btn active" onclick="showLocation('bambalapitiya')">
+        <i class="fa-solid fa-location-dot"></i> Bambalapitiya
+    </button>
+    <button class="location-btn" onclick="showLocation('nugegoda')">
+        <i class="fa-solid fa-location-dot"></i> Nugegoda
+    </button>
+</div>
+
+
+    <!-- Locations Container -->
+    <div class="locations-container">
+        <!-- Bambalapitiya Location -->
+        <div id="bambalapitiya" class="location-card active">
+            <div class="location-info">
+                <h2 class="location-name">Bambalapitiya</h2>
+                
+                <div class="info-item">
+                    <svg class="info-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    <div class="info-content">
+                        <h3>Address</h3>
+                        <p>32 Galle Road<br>Colombo 04, Sri Lanka</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <svg class="info-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <div class="info-content">
+                        <h3>Opening Hours</h3>
+                        <table class="hours-table">
+                            <tr><td>Monday - Thursday</td><td>11:00 AM - 11:00 PM</td></tr>
+                            <tr><td>Friday - Sunday</td><td>11:00 AM - 12:00 AM</td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <svg class="info-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                    </svg>
+                    <div class="info-content">
+                        <h3>Contact</h3>
+                        <p>Phone: +94 11 4670 670<br>
+                        Email:  burleysfoods@gmail.com</p>
+                    </div>
+                </div>
+
+         <div class="features">
+    <div class="feature">
+        <div class="feature-icon">
+            <i class="fa-solid fa-square-parking"></i>
+        </div>
+        <h4>Parking</h4>
+        <p>Free parking available</p>
+    </div>
+    <div class="feature">
+        <div class="feature-icon">
+            <i class="fa-solid fa-utensils"></i>
+        </div>
+        <h4>Dine-in</h4>
+        <p>12 seats capacity</p>
+    </div>
+    <div class="feature">
+        <div class="feature-icon">
+            <i class="fa-solid fa-box"></i>
+        </div>
+        <h4>Takeaway</h4>
+        <p>Quick service available</p>
+    </div>
+</div>
+
+
+               <div class="action-buttons">
+    <a href="tel:+94114670670" class="btn btn-primary">
+        <i class="fa-solid fa-phone"></i> Call Now
+    </a>
+    <a href="https://maps.app.goo.gl/229QL7kodUjYVfjP7" target="_blank" class="btn btn-secondary">
+        <i class="fa-solid fa-map-location-dot"></i> Get Directions
+    </a>
+</div>
+</div>
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3960.9836308520744!2d79.85312897448264!3d6.892560918765635!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae25b07be9edc07%3A0xd9fd163c4bcbe32f!2sBurley%E2%80%99s%20-%20Burgers%20%26%20Beyond!5e0!3m2!1sen!2slk!4v1756837447206!5m2!1sen!2slk"
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+
+        <!-- Nugegoda Location -->
+        <div id="nugegoda" class="location-card">
+            <div class="location-info">
+                <h2 class="location-name">Nugegoda</h2>
+                
+                <div class="info-item">
+                    <svg class="info-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path>
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                    </svg>
+                    <div class="info-content">
+                        <h3>Address</h3>
+                        <p>128 S. De S Jayasinghe Mawatha, Nugegoda</p>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <svg class="info-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    <div class="info-content">
+                        <h3>Opening Hours</h3>
+                        <table class="hours-table">
+                          <tr><td>Monday - Thursday</td><td>11:00 AM - 11:00 PM</td></tr>
+                            <tr><td>Friday - Sunday</td><td>11:00 AM - 12:00 AM</td></tr>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="info-item">
+                    <svg class="info-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+                    </svg>
+                    <div class="info-content">
+                        <h3>Contact</h3>
+                        <p>Phone: +94 11 4670 670<br>
+                        Email: burleysfoods@gmail.com</p>
+                    </div>
+                </div>
+
+  <div class="features">
+    <div class="feature">
+        <div class="feature-icon">
+            <i class="fa-solid fa-square-parking"></i>
+        </div>
+        <h4>Parking</h4>
+        <p>Free parking available</p>
+    </div>
+    <div class="feature">
+        <div class="feature-icon">
+            <i class="fa-solid fa-utensils"></i>
+        </div>
+        <h4>Dine-in</h4>
+        <p>15 seats capacity</p>
+    </div>
+    <div class="feature">
+        <div class="feature-icon">
+            <i class="fa-solid fa-box"></i>
+        </div>
+        <h4>Takeaway</h4>
+        <p>Express counter</p>
+    </div>
+</div>
+
+<div class="action-buttons">
+    <a href="tel:+94114670670" class="btn btn-primary">
+        <i class="fa-solid fa-phone"></i> Call Now
+    </a>
+    <a href="https://maps.google.com/?q=Nugegoda,Colombo" target="_blank" class="btn btn-secondary">
+        <i class="fa-solid fa-map-location-dot"></i> Get Directions
+    </a>
+</div>
+            </div>
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3961.188689203642!2d79.88337007448244!3d6.8679794190654615!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3ae25b00252c80fb%3A0x52c4fef90df6b6f4!2sBurley%E2%80%99s%20-%20Nugegoda!5e0!3m2!1sen!2slk!4v1756850397544!5m2!1sen!2slk"
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Burley's. All rights reserved.</p>
+    </footer>
+
+    <script>
+        function showLocation(location) {
+            // Hide all location cards
+            const cards = document.querySelectorAll('.location-card');
+            cards.forEach(card => card.classList.remove('active'));
+            
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.location-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+            
+            // Show selected location
+            document.getElementById(location).classList.add('active');
+            
+            // Add active class to clicked button
+            event.target.classList.add('active');
+            
+            // Smooth scroll to location section
+            document.getElementById(location).scrollIntoView({ 
+                behavior: 'smooth', 
+                block: 'nearest' 
+            });
+        }
+
+        // Handle hash navigation
+        window.addEventListener('load', function() {
+            const hash = window.location.hash.substring(1);
+            if (hash === 'nugegoda') {
+                document.querySelector('.location-btn:nth-child(2)').click();
+            }
+        });
+    </script>
+</body>
+</html>

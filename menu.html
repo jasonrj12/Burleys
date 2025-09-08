@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Menu - Burley's</title>
+    <link rel="icon" type="image/x-icon" href="images/logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+    <style>
+        @import "~@fortawesome/fontawesome-free/css/all.min.css";
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Roboto', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f8f8;
+        }
+
+        /* Navigation */
+        nav {
+            background: #fa9f1b;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+        }
+
+        .nav-links a {
+            color: #3f1e27;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: #fff;
+        }
+
+        /* Top burger image styling */
+        .top-burger-image {
+            width: 100%;
+            text-align: center;
+            margin-top: 0;
+            margin-bottom: 0;
+            background: linear-gradient(135deg, #fa9f1b 0%, #ff8c00 100%);
+            padding: 1rem 0;
+        }
+
+        .top-burger-image img {
+            max-width: 320px;
+            width: 90vw;
+            height: auto;
+            animation: float-burger 2.8s ease-in-out infinite alternate;
+            filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+        }
+
+        @keyframes float-burger {
+            from {
+                transform: translateY(0px) rotate(0deg);
+            }
+            to {
+                transform: translateY(-10px) rotate(2deg);
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, #fa9f1b 0%, #ff8c00 100%);
+            color: white;
+            padding: 4rem 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -10%;
+            width: 500px;
+            height: 500px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 50%;
+        }
+
+        .hero h1 {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+.menu-controls {
+  text-align: center;
+  margin: 20px 0;
+}
+
+.menu-controls h2 i {
+  margin-right: 8px;
+  color: #e63946; /* highlight */
+}
+
+.menu-buttons {
+  margin: 15px 0;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.menu-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 10px 16px;
+  background: #333;
+  color: #fff;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.menu-btn:hover {
+  background: #e99f00;
+}
+
+.zoom-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.zoom-btn {
+  background: #eee;
+  border: none;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.zoom-btn:hover {
+  background: #ddd;
+}
+
+
+        .zoom-level {
+            margin: 0 1rem;
+            color: #666;
+            font-weight: 600;
+        }
+
+       .pdf-container {
+    position: relative;
+    width: 100%;
+    height: 0;
+    padding-bottom: 140%; /* Aspect ratio, adjust if needed */
+    overflow: hidden;
+    border: 1px solid #ccc; /* optional border */
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.pdf-viewer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+@media screen and (max-width: 768px) {
+    .pdf-container {
+        padding-bottom: 180%; /* taller for mobile screens */
+    }
+}
+
+
+        .pdf-fallback {
+            text-align: center;
+            padding: 3rem;
+            background: #f9f9f9;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .pdf-fallback h3 {
+            color: #3f1e27;
+            margin-bottom: 1rem;
+        }
+
+        .pdf-fallback p {
+            color: #666;
+            margin-bottom: 2rem;
+        }
+
+        .download-btn {
+            background: #fa9f1b;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: all 0.3s;
+        }
+
+        .download-btn:hover {
+            background: #ff8c00;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(250, 159, 27, 0.3);
+        }
+
+        /* Menu Highlights */
+        .menu-highlights {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem auto;
+            max-width: 1200px;
+            padding: 0 2rem;
+        }
+
+        .highlight-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: transform 0.3s;
+        }
+
+        .highlight-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .highlight-header {
+            background: linear-gradient(135deg, #fa9f1b 0%, #ff8c00 100%);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        .highlight-header h3 {
+            font-family: 'Montserrat', Arial, sans-serif;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .highlight-content {
+            padding: 2rem;
+        }
+
+        .highlight-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px dotted #ddd;
+        }
+
+        .highlight-item:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+        .item-info h4 {
+            color: #3f1e27;
+            margin-bottom: 0.3rem;
+        }
+
+        .item-info p {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .item-price {
+            color: #fa9f1b;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        /* Footer */
+        footer {
+            background: #fa9f1b;
+            color: #3f1e27;
+            padding: 2rem 1rem 1rem 1rem;
+            text-align: center;
+            margin-top: 4rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .menu-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .menu-btn {
+                width: 100%;
+                max-width: 300px;
+                justify-content: center;
+            }
+
+            .pdf-viewer {
+                height: 60vh;
+                min-height: 400px;
+            }
+
+            .menu-highlights {
+                grid-template-columns: 1fr;
+                margin: 2rem auto;
+            }
+
+            .top-burger-image img {
+                max-width: 250px;
+            }
+        }
+
+        /* Modal Background */
+.menu-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    padding-top: 60px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.menu-modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    padding-top: 60px;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.8);
+}
+
+.menu-modal .modal-content {
+    margin: auto;
+    display: block;
+    max-width: 90%;
+    max-height: 80%;
+    border-radius: 10px;
+    box-shadow: 0 8px 25px rgba(0,0,0,0.5);
+    animation: zoomIn 0.3s ease;
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.caption {
+    text-align: center;
+    color: #fff;
+    padding: 10px 0;
+    font-size: 1.1rem;
+}
+
+/* Close button */
+.close-modal {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.close-modal:hover {
+    color: #ff8c00;
+}
+
+/* Navigation buttons */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    color: #fff;
+    font-size: 50px;
+    padding: 10px;
+    margin-top: -25px;
+    user-select: none;
+    transition: color 0.3s;
+}
+
+.prev:hover, .next:hover {
+    color: #ff8c00;
+}
+
+.prev {
+    left: 20px;
+}
+
+.next {
+    right: 20px;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .menu-modal .modal-content {
+        max-width: 95%;
+        max-height: 70%;
+    }
+    .prev, .next {
+        font-size: 40px;
+    }
+}
+
+
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav>
+        <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <a href="menu.html" id="menuNavLink">Menu</a>
+            <li><a href="story.html">Our Story</a></li>
+            <li><a href="locations.html">Our Locations</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <div class="hero">
+        <h1>Our Delicious Menu</h1>
+        <p>Discover our mouth-watering selection of burgers, Submarines, and beverages</p>
+    </div>
+
+<!-- Menu Popup Trigger -->
+<div class="menu-controls">
+    <h2><i class="fa-solid fa-clipboard-list"></i> Complete Menu</h2>
+    
+    <div class="menu-buttons">
+        <button id="openMenuModal" class="menu-btn">
+            <i class="fa-solid fa-eye"></i> View Menu
+        </button>
+        <a href="menu.pdf" download="Burleys-Menu.pdf" class="menu-btn">
+            <i class="fa-solid fa-download"></i> Download Menu
+        </a>
+    </div>
+</div>
+
+<!-- Menu Modal -->
+<div id="menuModal" class="menu-modal">
+    <span class="close-modal">&times;</span>
+    
+    <!-- Modal Image -->
+    <img class="modal-content" id="menuImage" src="images/image1.png" alt="Burley's Menu">
+
+    <!-- Caption (optional) -->
+    <div class="caption" id="menuCaption">Menu Image 1</div>
+
+    <!-- Navigation Buttons -->
+<a class="prev"><i class="fas fa-chevron-left"></i></a>
+<a class="next"><i class="fas fa-chevron-right"></i></a>
+</div>
+
+
+
+        
+        <!-- Fallback for browsers that don't support PDF viewing -->
+        <div class="pdf-fallback" style="display: none;">
+            <h3>📄 Menu Preview</h3>
+            <p>Your browser doesn't support PDF viewing. Please download our menu or view it in a new tab.</p>
+            <a href="menu.pdf" target="_blank" class="download-btn">
+                🔍 View Menu in New Tab
+            </a>
+            <a href="menu.pdf" download="Burleys-Menu.pdf" class="download-btn">
+                📥 Download Menu
+            </a>
+        </div>
+    </div>
+
+    <!-- Menu Highlights -->
+    <div class="menu-highlights">
+        <div class="highlight-card">
+            <div class="highlight-header">
+                <h3><i class="fa-solid fa-burger"></i> Signature Burgers</h3>
+                <p>Our most popular creations</p>
+            </div>
+            <div class="highlight-content">
+                <div class="highlight-item">
+                    <div class="item-info">
+                        <h4>Smokehouse BBQ Beef Burger</h4>
+                        <p>Beef patty, lettuce, tomato, onion, special sauce</p>
+                    </div>
+                    <div class="item-price">Rs. 1,690</div>
+                </div>
+                <div class="highlight-item">
+                    <div class="item-info">
+                        <h4>Prawnflix Burger</h4>
+                        <p>Batter Fried Prawns, Iceberg Lettuce, Tartar Sauce & In-House Tomato Sauce.</p>
+                    </div>
+                    <div class="item-price">Rs. 1,490</div>
+                </div>
+                <div class="highlight-item">
+                    <div class="item-info">
+                        <h4>Chicken Joy</h4>
+                        <p>Grilled Chicken Patty, Iceberg Lettuce, In-House Tomato sauce & Burger sauce</p>
+                    </div>
+                    <div class="item-price">Rs. 990</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="highlight-card">
+            <div class="highlight-header">
+               <h3><i class="fa-solid fa-bread-slice"></i> Submarines</h3>
+               <p>Hearty and satisfying</p>
+            </div>
+            <div class="highlight-content">
+                <div class="highlight-item">
+                    <div class="item-info">
+                        <h4>Chicken Fajita Submarine</h4>
+                        <p>Fajita Chicken, Iceberg Lettuce, Fresh Onion Rings, InHouse Tomato Sauce & Burger Sauce</p>
+                    </div>
+                    <div class="item-price">Rs. 1,490</div>
+                </div>
+                <div class="highlight-item">
+                    <div class="item-info">
+                        <h4>Devilled Chicken Submarine</h4>
+                        <p>Butter, BurgerSauce, Ice Burg Lettuce, Devilled Chicken Mix</p>
+                    </div>
+                    <div class="item-price">Rs. 1,490</div>
+                </div>
+                <div class="highlight-item">
+                    <div class="item-info">
+                        <h4>Zinger King Submarine</h4>
+                        <p>Crispy Chicken, Iceberg Lettuce, Green Chili Pickle, InHouse Tomato Sauce & Burger Sauce</p>
+                    </div>
+                    <div class="item-price">Rs. 1,290</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="highlight-card">
+            <div class="highlight-header">
+                <h3><i class="fa-solid fa-mug-soda"></i>Beverages</h3>
+                <p>Refresh yourself</p>
+            </div>
+            <div class="highlight-content">
+                <div class="highlight-item">
+                    <div class="item-info">
+                        <h4>Americano</h4>
+                        <p>Rich espresso with hot water</p>
+                    </div>
+                    <div class="item-price">Rs. 390</div>
+                </div>
+                <div class="highlight-item">
+                    <div class="item-info">
+                        <h4>Espresso</h4>
+                        <p>Strong and bold coffee served in a small cup</p>
+                    </div>
+                    <div class="item-price">Rs. 380</div>
+                </div>
+                <div class="highlight-item">
+                    <div class="item-info">
+                        <h4>Ice Latte</h4>
+                        <p>Chilled espresso with milk and ice</p>
+                    </div>
+                    <div class="item-price">Rs. 590</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2025 Burley's. All rights reserved.</p>
+    </footer>
+
+    <script>
+document.addEventListener("DOMContentLoaded", function() {
+
+  const images = [
+    {src: "images/image1.png", caption: ""},
+    {src: "images/image2.png", caption: ""},
+    {src: "images/image3.png", caption: ""},
+    {src: "images/image4.png", caption: ""},
+    {src: "images/image5.png", caption: ""},
+    {src: "images/image6.png", caption: ""},
+    {src: "images/image7.png", caption: ""}
+  ];
+
+  let currentIndex = 0;
+  let slideInterval;
+
+  const modal = document.getElementById("menuModal");
+  const modalImg = document.getElementById("menuImage");
+  const captionText = document.getElementById("menuCaption");
+  const btn = document.getElementById("openMenuModal");
+  const span = document.querySelector(".close-modal");
+  const prevBtn = document.querySelector(".prev");
+  const nextBtn = document.querySelector(".next");
+
+  function showImage(index){
+    modalImg.src = images[index].src;
+    captionText.textContent = images[index].caption;
+  }
+
+  function startAutoSlide(){
+    slideInterval = setInterval(() => {
+      currentIndex = (currentIndex + 1) % images.length;
+      showImage(currentIndex);
+    }, 3000);
+  }
+
+  function stopAutoSlide(){ clearInterval(slideInterval); }
+  function resetAutoSlide(){ stopAutoSlide(); startAutoSlide(); }
+
+  btn.onclick = function(){
+    modal.style.display = "block";
+    showImage(currentIndex);
+    startAutoSlide();
+  }
+
+  span.onclick = function(){ modal.style.display="none"; stopAutoSlide(); }
+
+  window.onclick = function(event){
+    if(event.target === modal){ modal.style.display="none"; stopAutoSlide(); }
+  }
+
+  nextBtn.onclick = function(){
+    currentIndex = (currentIndex +1) % images.length;
+    showImage(currentIndex);
+    resetAutoSlide();
+  }
+
+  prevBtn.onclick = function(){
+    currentIndex = (currentIndex -1 + images.length) % images.length;
+    showImage(currentIndex);
+    resetAutoSlide();
+  }
+
+  // NAVBAR LINK CLICK TO OPEN MODAL
+  const menuNavLink = document.getElementById("menuNavLink");
+  menuNavLink.addEventListener("click", function(event){
+    event.preventDefault();
+    modal.style.display = "block";
+    showImage(currentIndex);
+    startAutoSlide();
+  });
+
+});
+
+    </script>
+</body>
+</html>
