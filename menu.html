@@ -450,7 +450,13 @@
         font-size: 40px;
     }
 }
-
+/* Prevent text selection */
+.hero{
+    user-select: none;       /* Standard */
+    -webkit-user-select: none; /* Safari/Chrome */
+    -moz-user-select: none;   /* Firefox */
+    -ms-user-select: none;    /* IE/Edge */
+}
 
     </style>
 </head>
@@ -706,7 +712,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
 });
 
-
+     // Handle hash navigation
+        window.addEventListener('load', function() {
+            const hash = window.location.hash.substring(1);
+            if (hash === 'nugegoda') {
+                document.querySelector('.location-btn:nth-child(2)').click();
+            }
+        });
     </script>
 </body>
 </html>
