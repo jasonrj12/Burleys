@@ -7,8 +7,10 @@
   <meta name="description" content="Discover Burley's Sri Lanka story: how we bring bold Sri Lankan flavours to modern fried chicken." />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="icon" href="images/logo.png" type="image/x-icon">
   <style>
+     @import "~@fortawesome/fontawesome-free/css/all.min.css";
     :root{
       --bg:#fa9f1b;
       --card:#ffffff;
@@ -33,10 +35,29 @@
     a{ color:inherit; text-decoration:none; }
     header{ padding:16px 0; border-bottom:1px solid rgba(0,0,0,.08); background:var(--bg); position:sticky; top:0; z-index:50; }
     .container{ width:min(1100px,92vw); margin-inline:auto; }
-    .nav{ display:flex; justify-content:space-between; align-items:center; }
-    .logo{ font-weight:800; font-size:20px; color:#111; } .logo b{ color:#fff; }
-    .nav a.btn{ padding:8px 16px; border-radius:999px; border:1px solid rgba(0,0,0,.12); transition:.25s; font-weight:600; font-size:14px; color:#111; background:rgba(255,255,255,.9); }
-    .nav a.btn:hover{ border-color:#111; box-shadow:0 0 0 6px rgba(0,0,0,.15); background:#fff; }
+      nav {
+            background: #fa9f1b;
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            justify-content: right;
+        }
+
+        .nav-links a {
+            color: #3f1e27;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+        }
 
     .story-section{ padding:80px 0; display:flex; flex-wrap:wrap; gap:40px; }
     .story-text{ flex:1 1 500px; }
@@ -54,19 +75,14 @@
 <body>
 
   <!-- Header -->
-  <header>
-    <div class="container nav">
-      <div class="logo">
-        <img src="images/logo.png" alt="Burley's Logo" style="height:60px; vertical-align:middle;">
-      </div>
-      <nav>
-        <a href="index.html" class="btn">Home</a>
-        <a href="menu.html" class="btn">Menu</a>
-        <a href="story.html" class="btn">Our Story</a>
-        <a href="locations.html" class="btn">Our Locations</a>
-      </nav>
-    </div>
-  </header>
+    <nav>
+        <ul class="nav-links">
+             <li><a href="index.html"><i class="fa-solid fa-home"></i> Home</a></li>
+              <li><a href="menu.html"><i class="fa-solid fa-utensils"></i> Menu</a></li>
+              <li><a href="story.html"><i class="fa-solid fa-book"></i> Our Story</a></li>
+              <li><a href="locations.html"><i class="fa-solid fa-location-dot"></i> Our Locations</a></li>
+        </ul>
+    </nav>
 
 
   <!-- Our Story Section -->
