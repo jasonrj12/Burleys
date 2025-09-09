@@ -134,6 +134,7 @@ let reviewIndex = 0;
 const reviewSlide = document.getElementById('reviewSlide');
 const reviewPrev = document.getElementById('reviewPrev');
 const reviewNext = document.getElementById('reviewNext');
+let reviewInterval = null;
 
 function renderReview(idx) {
   if (!reviewSlide) return;
@@ -147,15 +148,37 @@ function renderReview(idx) {
   reviewSlide.style.opacity = 0;
   setTimeout(() => { reviewSlide.style.opacity = 1; }, 50);
 }
-if (reviewSlide) renderReview(reviewIndex);
+
+function startReviewAutoSlide() {
+  if (reviewInterval) clearInterval(reviewInterval);
+  reviewInterval = setInterval(() => {
+    reviewIndex = (reviewIndex + 1) % reviews.length;
+    renderReview(reviewIndex);
+  }, 3000);
+}
+
+function stopReviewAutoSlide() {
+  if (reviewInterval) clearInterval(reviewInterval);
+}
+
+if (reviewSlide) {
+  renderReview(reviewIndex);
+  startReviewAutoSlide();
+}
+
 if (reviewPrev) reviewPrev.addEventListener('click', () => {
   reviewIndex = (reviewIndex - 1 + reviews.length) % reviews.length;
   renderReview(reviewIndex);
+  stopReviewAutoSlide();
+  startReviewAutoSlide();
 });
 if (reviewNext) reviewNext.addEventListener('click', () => {
   reviewIndex = (reviewIndex + 1) % reviews.length;
   renderReview(reviewIndex);
+  stopReviewAutoSlide();
+  startReviewAutoSlide();
 });
+
 
  // Loading Screen and Modal Logic
     document.addEventListener('DOMContentLoaded', function() {
@@ -279,4 +302,5 @@ window.onscroll = function() {
 backToTopBtn.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 });
+
 
