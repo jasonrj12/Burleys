@@ -87,25 +87,23 @@ h3 {
   letter-spacing: 2px;
   color: #3f1e27;
 }
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 2rem;
-  margin: 0;
-  padding: 0;
-}
-.nav-links a {
-  color: #3f1e27;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s;
-}
-.nav-links a:hover {
-  color: #fff;
-  background: #3f1e27;
-  border-radius: 8px;
-  padding: 0.25rem 0.75rem;
-}
+ .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            justify-content: right;
+        }
+
+        .nav-links a {
+            color: #3f1e27;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+        }
 /* Hero Section */
 .hero {
   background: #fa9f1b;
