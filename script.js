@@ -179,7 +179,6 @@ if (reviewNext) reviewNext.addEventListener('click', () => {
   startReviewAutoSlide();
 });
 
-
  // Loading Screen and Modal Logic
     document.addEventListener('DOMContentLoaded', function() {
       const loadingScreen = document.getElementById('loadingScreen');
@@ -302,5 +301,4 @@ window.onscroll = function() {
 backToTopBtn.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 });
-
 
