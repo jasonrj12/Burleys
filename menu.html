@@ -623,7 +623,6 @@ document.addEventListener("DOMContentLoaded", function() {
   ];
 
   let currentIndex = 0;
-  let slideInterval;
 
   const modal = document.getElementById("menuModal");
   const modalImg = document.getElementById("menuImage");
@@ -638,38 +637,25 @@ document.addEventListener("DOMContentLoaded", function() {
     captionText.textContent = images[index].caption;
   }
 
-  function startAutoSlide(){
-    slideInterval = setInterval(() => {
-      currentIndex = (currentIndex + 1) % images.length;
-      showImage(currentIndex);
-    }, 3000);
-  }
-
-  function stopAutoSlide(){ clearInterval(slideInterval); }
-  function resetAutoSlide(){ stopAutoSlide(); startAutoSlide(); }
-
   btn.onclick = function(){
     modal.style.display = "block";
     showImage(currentIndex);
-    startAutoSlide();
   }
 
-  span.onclick = function(){ modal.style.display="none"; stopAutoSlide(); }
+  span.onclick = function(){ modal.style.display="none"; }
 
   window.onclick = function(event){
-    if(event.target === modal){ modal.style.display="none"; stopAutoSlide(); }
+    if(event.target === modal){ modal.style.display="none"; }
   }
 
   nextBtn.onclick = function(){
     currentIndex = (currentIndex +1) % images.length;
     showImage(currentIndex);
-    resetAutoSlide();
   }
 
   prevBtn.onclick = function(){
     currentIndex = (currentIndex -1 + images.length) % images.length;
     showImage(currentIndex);
-    resetAutoSlide();
   }
 
   // NAVBAR LINK CLICK TO OPEN MODAL
@@ -678,10 +664,10 @@ document.addEventListener("DOMContentLoaded", function() {
     event.preventDefault();
     modal.style.display = "block";
     showImage(currentIndex);
-    startAutoSlide();
   });
 
 });
+
 
     </script>
 </body>
