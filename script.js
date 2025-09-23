@@ -134,6 +134,7 @@ let reviewIndex = 0;
 const reviewSlide = document.getElementById('reviewSlide');
 const reviewPrev = document.getElementById('reviewPrev');
 const reviewNext = document.getElementById('reviewNext');
+let reviewInterval = null;
 
 function renderReview(idx) {
   if (!reviewSlide) return;
@@ -147,14 +148,35 @@ function renderReview(idx) {
   reviewSlide.style.opacity = 0;
   setTimeout(() => { reviewSlide.style.opacity = 1; }, 50);
 }
-if (reviewSlide) renderReview(reviewIndex);
+
+function startReviewAutoSlide() {
+  if (reviewInterval) clearInterval(reviewInterval);
+  reviewInterval = setInterval(() => {
+    reviewIndex = (reviewIndex + 1) % reviews.length;
+    renderReview(reviewIndex);
+  }, 3000);
+}
+
+function stopReviewAutoSlide() {
+  if (reviewInterval) clearInterval(reviewInterval);
+}
+
+if (reviewSlide) {
+  renderReview(reviewIndex);
+  startReviewAutoSlide();
+}
+
 if (reviewPrev) reviewPrev.addEventListener('click', () => {
   reviewIndex = (reviewIndex - 1 + reviews.length) % reviews.length;
   renderReview(reviewIndex);
+  stopReviewAutoSlide();
+  startReviewAutoSlide();
 });
 if (reviewNext) reviewNext.addEventListener('click', () => {
   reviewIndex = (reviewIndex + 1) % reviews.length;
   renderReview(reviewIndex);
+  stopReviewAutoSlide();
+  startReviewAutoSlide();
 });
 
  // Loading Screen and Modal Logic
@@ -278,5 +300,31 @@ window.onscroll = function() {
 // Smooth scroll to top
 backToTopBtn.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
+});
+
+// Modern Zoom functionality for menu modal
+const menuImage = document.getElementById('menuImage');
+const zoomInBtn = document.getElementById('zoomIn');
+const zoomOutBtn = document.getElementById('zoomOut');
+const resetZoomBtn = document.getElementById('resetZoom');
+
+let scale = 1;
+
+zoomInBtn.addEventListener('click', () => {
+    scale = Math.min(scale + 0.1, 3); // Limit max zoom level
+    menuImage.style.transform = `scale(${scale})`;
+    menuImage.style.transition = 'transform 0.3s ease';
+});
+
+zoomOutBtn.addEventListener('click', () => {
+    scale = Math.max(scale - 0.1, 0.5); // Limit min zoom level
+    menuImage.style.transform = `scale(${scale})`;
+    menuImage.style.transition = 'transform 0.3s ease';
+});
+
+resetZoomBtn.addEventListener('click', () => {
+    scale = 1;
+    menuImage.style.transform = 'scale(1)';
+    menuImage.style.transition = 'transform 0.3s ease';
 });
 

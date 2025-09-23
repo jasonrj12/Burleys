@@ -33,7 +33,7 @@
             list-style: none;
             display: flex;
             gap: 2rem;
-            justify-content: center;
+            justify-content: right;
         }
 
         .nav-links a {
@@ -144,19 +144,24 @@
 }
 
 .zoom-controls {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 12px;
-  margin-top: 10px;
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 0;
+    z-index: 1100;
 }
 
 .zoom-btn {
-  background: #eee;
-  border: none;
-  padding: 8px 12px;
-  border-radius: 5px;
-  cursor: pointer;
+    background: #e99f00;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 .zoom-btn:hover {
@@ -445,7 +450,13 @@
         font-size: 40px;
     }
 }
-
+/* Prevent text selection */
+.hero{
+    user-select: none;       /* Standard */
+    -webkit-user-select: none; /* Safari/Chrome */
+    -moz-user-select: none;   /* Firefox */
+    -ms-user-select: none;    /* IE/Edge */
+}
 
     </style>
 </head>
@@ -453,10 +464,10 @@
     <!-- Navigation -->
     <nav>
         <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <a href="menu.html" id="menuNavLink">Menu</a>
-            <li><a href="story.html">Our Story</a></li>
-            <li><a href="locations.html">Our Locations</a></li>
+            <li><a href="index.html"><i class="fa-solid fa-home"></i> Home</a></li>
+            <li><a href="menu.html" id="menuNavLink"><i class="fa-solid fa-utensils"></i> Menu</a></li>
+            <li><a href="story.html"><i class="fa-solid fa-book"></i> Our Story</a></li>
+            <li><a href="locations.html"><i class="fa-solid fa-location-dot"></i> Our Locations</a></li>
         </ul>
     </nav>
 
@@ -491,8 +502,21 @@
     <div class="caption" id="menuCaption">Menu Image 1</div>
 
     <!-- Navigation Buttons -->
-<a class="prev"><i class="fas fa-chevron-left"></i></a>
-<a class="next"><i class="fas fa-chevron-right"></i></a>
+<a class="prev" style="font-size:28px; padding:4px 10px;"><i class="fas fa-chevron-left"></i></a>
+<a class="next" style="font-size:28px; padding:4px 10px;"><i class="fas fa-chevron-right"></i></a>
+
+<!-- Modern Zoom Controls -->
+<div class="zoom-controls fixed-controls">
+    <button class="zoom-btn" id="zoomIn" aria-label="Zoom In">
+        <i class="fa-solid fa-magnifying-glass-plus"></i>
+    </button>
+    <button class="zoom-btn" id="zoomOut" aria-label="Zoom Out">
+        <i class="fa-solid fa-magnifying-glass-minus"></i>
+    </button>
+    <button class="zoom-btn" id="resetZoom" aria-label="Reset Zoom">
+        <i class="fa-solid fa-arrows-rotate"></i>
+    </button>
+</div>
 </div>
 
 
@@ -631,6 +655,11 @@ document.addEventListener("DOMContentLoaded", function() {
   const span = document.querySelector(".close-modal");
   const prevBtn = document.querySelector(".prev");
   const nextBtn = document.querySelector(".next");
+  const zoomInBtn = document.getElementById("zoomIn");
+  const zoomOutBtn = document.getElementById("zoomOut");
+  const resetZoomBtn = document.getElementById("resetZoom");
+
+  let zoomLevel = 1;
 
   function showImage(index){
     modalImg.src = images[index].src;
@@ -658,6 +687,21 @@ document.addEventListener("DOMContentLoaded", function() {
     showImage(currentIndex);
   }
 
+  zoomInBtn.onclick = function() {
+    zoomLevel += 0.1;
+    modalImg.style.transform = `scale(${zoomLevel})`;
+  }
+
+  zoomOutBtn.onclick = function() {
+    zoomLevel = Math.max(1, zoomLevel - 0.1);
+    modalImg.style.transform = `scale(${zoomLevel})`;
+  }
+
+  resetZoomBtn.onclick = function() {
+    zoomLevel = 1;
+    modalImg.style.transform = `scale(${zoomLevel})`;
+  }
+
   // NAVBAR LINK CLICK TO OPEN MODAL
   const menuNavLink = document.getElementById("menuNavLink");
   menuNavLink.addEventListener("click", function(event){
@@ -668,7 +712,13 @@ document.addEventListener("DOMContentLoaded", function() {
 
 });
 
-
+     // Handle hash navigation
+        window.addEventListener('load', function() {
+            const hash = window.location.hash.substring(1);
+            if (hash === 'nugegoda') {
+                document.querySelector('.location-btn:nth-child(2)').click();
+            }
+        });
     </script>
 </body>
 </html>

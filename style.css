@@ -87,25 +87,23 @@ h3 {
   letter-spacing: 2px;
   color: #3f1e27;
 }
-.nav-links {
-  list-style: none;
-  display: flex;
-  gap: 2rem;
-  margin: 0;
-  padding: 0;
-}
-.nav-links a {
-  color: #3f1e27;
-  text-decoration: none;
-  font-weight: 500;
-  transition: color 0.2s;
-}
-.nav-links a:hover {
-  color: #fff;
-  background: #3f1e27;
-  border-radius: 8px;
-  padding: 0.25rem 0.75rem;
-}
+ .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+            justify-content: right;
+        }
+
+        .nav-links a {
+            color: #3f1e27;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: #fff;
+        }
 /* Hero Section */
 .hero {
   background: #fa9f1b;
@@ -1447,4 +1445,25 @@ footer {
     transform: translateY(-5px);       /* Slight lift */
     box-shadow: 0 8px 20px rgba(0,0,0,0.4);
     background: linear-gradient(135deg, #feb47b, #ff7e5f); /* Hover gradient */
+}
+
+/* Fixed positioning for zoom controls */
+.fixed-controls {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    display: flex;
+    gap: 10px;
+    z-index: 1000;
+}
+
+.fixed-controls .zoom-btn {
+    background: rgba(255, 255, 255, 0.8);
+    border: 1px solid #ccc;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    transition: background 0.3s;
+}
+
+.fixed-controls .zoom-btn:hover {
+    background: rgba(255, 255, 255, 1);
 }
