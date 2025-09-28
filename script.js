@@ -87,14 +87,101 @@ if (newsletterForm) {
   });
 }
 
-// 4. Hamburger Menu for Mobile
-const hamburger = document.querySelector('.hamburger');
-const navLinks = document.querySelector('.nav-links');
-if (hamburger && navLinks) {
-  hamburger.addEventListener('click', () => {
-    navLinks.classList.toggle('open');
+// 4. Global navigation behaviour
+function initNavigation() {
+  const hamburgerBtn = document.getElementById('hamburger');
+  const navLinksContainer = document.querySelector('.nav-links');
+
+  if (!hamburgerBtn || !navLinksContainer) {
+    return;
+  }
+
+  const navAnchors = navLinksContainer.querySelectorAll('.nav-link');
+  const hamburgerIcon = hamburgerBtn.querySelector('i');
+
+  const setHamburgerState = (isOpen) => {
+    hamburgerBtn.classList.toggle('active', isOpen);
+    hamburgerBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+    if (hamburgerIcon) {
+      hamburgerIcon.className = isOpen ? 'fas fa-times' : 'fas fa-bars';
+    }
+  };
+
+  const closeMenu = () => {
+    navLinksContainer.classList.remove('open');
+    setHamburgerState(false);
+  };
+
+  const toggleMenu = () => {
+    const isOpen = navLinksContainer.classList.toggle('open');
+    setHamburgerState(isOpen);
+  };
+
+  hamburgerBtn.setAttribute('aria-expanded', 'false');
+
+  hamburgerBtn.addEventListener('click', (event) => {
+    event.stopPropagation();
+    toggleMenu();
+  });
+
+  navLinksContainer.addEventListener('click', (event) => {
+    event.stopPropagation();
+  });
+
+  navAnchors.forEach((link) => {
+    link.addEventListener('click', () => {
+      closeMenu();
+    });
+  });
+
+  document.addEventListener('click', (event) => {
+    if (!navLinksContainer.contains(event.target) && !hamburgerBtn.contains(event.target)) {
+      closeMenu();
+    }
+  });
+
+  document.addEventListener('keyup', (event) => {
+    if (event.key === 'Escape') {
+      closeMenu();
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth >= 900) {
+      closeMenu();
+    }
+  });
+
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  navAnchors.forEach((link) => {
+    const href = link.getAttribute('href');
+    if (!href) {
+      return;
+    }
+    if (href === currentPage) {
+      link.classList.add('active');
+      link.setAttribute('aria-current', 'page');
+    }
+  });
+
+  const anchorLinks = document.querySelectorAll('a[href^="#"]');
+  anchorLinks.forEach((anchor) => {
+    anchor.addEventListener('click', (event) => {
+      const targetSelector = anchor.getAttribute('href');
+      if (!targetSelector || targetSelector === '#') {
+        return;
+      }
+      const target = document.querySelector(targetSelector);
+      if (target) {
+        event.preventDefault();
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        closeMenu();
+      }
+    });
   });
 }
+
+document.addEventListener('DOMContentLoaded', initNavigation);
 
 // 5. Dynamic Reviews Carousel
 const reviews = [

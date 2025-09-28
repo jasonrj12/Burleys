@@ -6,6 +6,8 @@
     <title>Our Locations - Burley's</title>
     <link rel="icon" type="image/x-icon" href="images/logo.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@900;700;500;400&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="navstyle.css">
     <style>
         @import "~@fortawesome/fontawesome-free/css/all.min.css";
         * {
@@ -19,31 +21,6 @@
             line-height: 1.6;
             color: #333;
             background: #f8f8f8;
-        }
-
-        /* Navigation (placeholder - use your existing nav styles) */
-        nav {
-            background: #fa9f1b;
-            padding: 1rem 2rem;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 2rem;
-            justify-content: right;
-        }
-
-        .nav-links a {
-            color: #3f1e27;
-            text-decoration: none;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #fff;
         }
 
         /* Hero Section */
@@ -383,14 +360,43 @@
 </head>
 <body>
     <!-- Navigation -->
-    <nav>
-        <ul class="nav-links">
-             <li><a href="index.html"><i class="fa-solid fa-home"></i> Home</a></li>
-              <li><a href="menu.html"><i class="fa-solid fa-utensils"></i> Menu</a></li>
-              <li><a href="story.html"><i class="fa-solid fa-book"></i> Our Story</a></li>
-              <li><a href="locations.html"><i class="fa-solid fa-location-dot"></i> Our Locations</a></li>
+    <header class="site-header">
+      <nav class="navbar" id="navbar">
+        <a class="logo" href="index.html" aria-label="Burley's home">
+          <img src="images/logo color.png" alt="Burley's Logo">
+        </a>
+        <button id="hamburger" class="hamburger" type="button" aria-controls="primaryNav" aria-label="Toggle navigation" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <i class="fas fa-bars"></i>
+        </button>
+        <ul class="nav-links" id="primaryNav">
+          <li>
+            <a href="index.html" class="nav-link">
+              <i class="fa-solid fa-home"></i>
+              <span>Home</span>
+            </a>
+          </li>
+          <li>
+            <a href="menu.html" class="nav-link">
+              <i class="fa-solid fa-utensils"></i>
+              <span>Menu</span>
+            </a>
+          </li>
+          <li>
+            <a href="story.html" class="nav-link">
+              <i class="fa-solid fa-book"></i>
+              <span>Our Story</span>
+            </a>
+          </li>
+          <li>
+            <a href="locations.html" class="nav-link">
+              <i class="fa-solid fa-location-dot"></i>
+              <span>Our Locations</span>
+            </a>
+          </li>
         </ul>
-    </nav>
+      </nav>
+    </header>
     
     <!-- Hero Section -->
     <div class="hero">
@@ -584,6 +590,7 @@
         <p>&copy; 2025 Burley's. All rights reserved.</p>
     </footer>
 
+    <script src="script.js"></script>
     <script>
         function showLocation(location) {
             // Hide all location cards
