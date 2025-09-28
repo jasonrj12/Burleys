@@ -15,11 +15,12 @@ html {
   justify-content: space-between;
   flex-wrap: nowrap;
   background: linear-gradient(135deg, rgba(250, 159, 27, 0.95) 0%, rgba(232, 137, 10, 0.9) 100%);
-  color: #3f1e27;
+  color: #ffffff;
   padding: 1rem 2rem;
   border-bottom: 2px solid rgba(255, 255, 255, 0.2);
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15), 0 4px 16px rgba(250, 159, 27, 0.3);
   position: relative;
+  margin: 0;
 }
 
 .logo {
@@ -147,23 +148,40 @@ html {
   border: 0;
 }
 
+/* 🔹 Mobile Fixes */
 @media (max-width: 900px) {
+  /* Remove unwanted gap above navbar */
+  body, html {
+    margin: 0;
+    padding: 0;
+  }
+
+  .site-header {
+    margin: 0;
+    padding: 0;
+    top: 0;
+  }
+
+  .navbar {
+    margin: 0;
+    padding: 1rem;
+  }
+
   .hamburger {
     display: inline-flex;
   }
 
   .nav-links {
     position: absolute;
-    top: calc(100% + 0.75rem);
-    left: 1rem;
-    right: 1rem;
+    top: 100%;
+    left: 0;
+    right: 0;
     display: none;
     flex-direction: column;
     align-items: stretch;
-    gap: 0;
     padding: 1.25rem 1rem;
     background: linear-gradient(150deg, rgba(45, 41, 38, 0.98) 0%, rgba(29, 26, 24, 0.92) 100%);
-    border-radius: 18px;
+    border-radius: 0 0 18px 18px;
     border: 1px solid rgba(255, 255, 255, 0.18);
     box-shadow: 0 18px 36px rgba(0, 0, 0, 0.25);
   }
@@ -182,6 +200,14 @@ html {
     padding: 0.75rem 0.5rem;
     border-bottom: 1px solid rgba(255, 255, 255, 0.12);
     transform: none;
+    transition: background 0.25s ease, color 0.25s ease;
+  }
+
+  /* 🔹 Hover effect in mobile view */
+  .nav-link:hover,
+  .nav-link:focus-visible {
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
   }
 
   .nav-links li:last-child .nav-link {

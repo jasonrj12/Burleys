@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@900;700;500;400&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="navstyle.css">
+    <meta name="description" content="Explore Burley's delicious menu featuring signature burgers, hearty submarines, and refreshing beverages. Download or view our full menu online!" />
+    <meta name="keywords" content="Burley's, menu, burgers, submarines, beverages, food delivery" />
+    <meta name="author" content="Burley's" />
+    <meta name="robots" content="index, follow" />
+    
 </head>
     <style>
         @import "~@fortawesome/fontawesome-free/css/all.min.css";
@@ -434,7 +439,44 @@
     -ms-user-select: none;    /* IE/Edge */
 }
 
-    </style>
+/* Navigation buttons */
+.prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%); /* ✅ keeps arrows vertically centered */
+    color: #fff;
+    font-size: 40px;
+    padding: 12px 18px;
+    user-select: none;
+    transition: color 0.3s;
+    background: rgba(0, 0, 0, 0.3); /* optional: add a semi-transparent bg */
+    border-radius: 50%;
+}
+
+.prev:hover, .next:hover {
+    color: #ff8c00;
+    background: rgba(0, 0, 0, 0.5);
+}
+
+.prev {
+    left: 20px; /* ✅ keep left aligned */
+}
+
+.next {
+    right: 20px; /* ✅ keep right aligned */
+}
+
+/* On smaller screens make them slightly smaller */
+@media (max-width: 768px) {
+    .prev, .next {
+        font-size: 28px;
+        padding: 8px 12px;
+    }
+}
+
+</style>
+
 </head>
 <body>
     <!-- Navigation -->
@@ -638,94 +680,141 @@
         <p>&copy; 2025 Burley's. All rights reserved.</p>
     </footer>
 
-    <script src="script.js"></script>
-
-    <script>
-document.addEventListener("DOMContentLoaded", function() {
-
+ <script>
+document.addEventListener("DOMContentLoaded", () => {
   const images = [
-    {src: "images/image1.png", caption: ""},
-    {src: "images/image2.png", caption: ""},
-    {src: "images/image3.png", caption: ""},
-    {src: "images/image4.png", caption: ""},
-    {src: "images/image5.png", caption: ""},
-    {src: "images/image6.png", caption: ""},
-    {src: "images/image7.png", caption: ""}
+    {src: "images/image1.png", caption: "Menu Page 1", loading: "eager"},
+    {src: "images/image2.png", caption: "Menu Page 2", loading: "lazy"},
+    {src: "images/image3.png", caption: "Menu Page 3", loading: "lazy"},
+    {src: "images/image4.png", caption: "Menu Page 4", loading: "lazy"},
+    {src: "images/image5.png", caption: "Menu Page 5", loading: "lazy"},
+    {src: "images/image6.png", caption: "Menu Page 6", loading: "lazy"},
+    {src: "images/image7.png", caption: "Menu Page 7", loading: "lazy"}
   ];
 
   let currentIndex = 0;
+  let zoomLevel = 1;
+  let autoSlideInterval = null;
+  const AUTO_DELAY = 4000; // ms (change to taste)
 
+  // Elements
   const modal = document.getElementById("menuModal");
   const modalImg = document.getElementById("menuImage");
   const captionText = document.getElementById("menuCaption");
-  const btn = document.getElementById("openMenuModal");
-  const span = document.querySelector(".close-modal");
-  const prevBtn = document.querySelector(".prev");
-  const nextBtn = document.querySelector(".next");
+  const openBtn = document.getElementById("openMenuModal");
+  const closeBtn = modal?.querySelector(".close-modal");
+  const prevBtn = modal?.querySelector(".prev");
+  const nextBtn = modal?.querySelector(".next");
   const zoomInBtn = document.getElementById("zoomIn");
   const zoomOutBtn = document.getElementById("zoomOut");
   const resetZoomBtn = document.getElementById("resetZoom");
 
-  let zoomLevel = 1;
+  // safety checks
+  if (!modal || !modalImg) {
+    console.error("Modal or modal image element not found. IDs expected: menuModal, menuImage");
+    return;
+  }
 
-  function showImage(index){
+  // visual smoothing
+  modalImg.style.transition = "transform 0.18s ease";
+
+  function showImage(index) {
+    if (!images[index]) return;
     modalImg.src = images[index].src;
-    captionText.textContent = images[index].caption;
+    captionText.textContent = images[index].caption || "";
+    modalImg.style.transform = `scale(${zoomLevel})`;
   }
 
-  btn.onclick = function(){
+  function startAutoSlide() {
+    stopAutoSlide();
+    autoSlideInterval = setInterval(() => {
+      currentIndex = (currentIndex + 1) % images.length;
+      zoomLevel = 1; // reset zoom when slide advances automatically
+      showImage(currentIndex);
+    }, AUTO_DELAY);
+  }
+
+  function stopAutoSlide() {
+    if (autoSlideInterval) {
+      clearInterval(autoSlideInterval);
+      autoSlideInterval = null;
+    }
+  }
+
+  // Open modal
+  openBtn?.addEventListener("click", (e) => {
+    e.preventDefault();
     modal.style.display = "block";
-    showImage(currentIndex);
-  }
-
-  span.onclick = function(){ modal.style.display="none"; }
-
-  window.onclick = function(event){
-    if(event.target === modal){ modal.style.display="none"; }
-  }
-
-  nextBtn.onclick = function(){
-    currentIndex = (currentIndex +1) % images.length;
-    showImage(currentIndex);
-  }
-
-  prevBtn.onclick = function(){
-    currentIndex = (currentIndex -1 + images.length) % images.length;
-    showImage(currentIndex);
-  }
-
-  zoomInBtn.onclick = function() {
-    zoomLevel += 0.1;
-    modalImg.style.transform = `scale(${zoomLevel})`;
-  }
-
-  zoomOutBtn.onclick = function() {
-    zoomLevel = Math.max(1, zoomLevel - 0.1);
-    modalImg.style.transform = `scale(${zoomLevel})`;
-  }
-
-  resetZoomBtn.onclick = function() {
+    currentIndex = currentIndex % images.length;
     zoomLevel = 1;
-    modalImg.style.transform = `scale(${zoomLevel})`;
-  }
-
-  // NAVBAR LINK CLICK TO OPEN MODAL
-  const menuNavLink = document.getElementById("menuNavLink");
-  menuNavLink.addEventListener("click", function(event){
-    event.preventDefault();
-    modal.style.display = "block";
     showImage(currentIndex);
+    startAutoSlide();
   });
 
-});
+  // Close actions
+  closeBtn?.addEventListener("click", () => {
+    modal.style.display = "none";
+    stopAutoSlide();
+  });
+  window.addEventListener("click", (e) => {
+    if (e.target === modal) {
+      modal.style.display = "none";
+      stopAutoSlide();
+    }
+  });
 
-     // Handle hash navigation
-        window.addEventListener('load', function() {
-            const hash = window.location.hash.substring(1);
-            if (hash === 'nugegoda') {
-                document.querySelector('.location-btn:nth-child(2)').click();
-            }
-        });
-    </script>
+  // Prev / Next (prevent default for anchors)
+  prevBtn?.addEventListener("click", (e) => {
+    e.preventDefault();
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    zoomLevel = 1;
+    showImage(currentIndex);
+    startAutoSlide(); // reset timer
+  });
+
+  nextBtn?.addEventListener("click", (e) => {
+    e.preventDefault();
+    currentIndex = (currentIndex + 1) % images.length;
+    zoomLevel = 1;
+    showImage(currentIndex);
+    startAutoSlide(); // reset timer
+  });
+
+  // Zoom controls - pause slideshow while user is zooming
+  zoomInBtn?.addEventListener("click", () => {
+    stopAutoSlide();
+    zoomLevel = +(zoomLevel + 0.1).toFixed(2);
+    modalImg.style.transform = `scale(${zoomLevel})`;
+  });
+
+  zoomOutBtn?.addEventListener("click", () => {
+    stopAutoSlide();
+    zoomLevel = +(Math.max(1, zoomLevel - 0.1)).toFixed(2);
+    modalImg.style.transform = `scale(${zoomLevel})`;
+  });
+
+  resetZoomBtn?.addEventListener("click", () => {
+    stopAutoSlide();
+    zoomLevel = 1;
+    modalImg.style.transform = `scale(1)`;
+  });
+
+  // Pause on hover so user can inspect image
+  modalImg.addEventListener("mouseenter", stopAutoSlide);
+  modalImg.addEventListener("mouseleave", startAutoSlide);
+
+  // Keyboard navigation while modal open
+  document.addEventListener("keydown", (e) => {
+    if (modal.style.display !== "block") return;
+    if (e.key === "ArrowRight") { e.preventDefault(); nextBtn?.click(); }
+    if (e.key === "ArrowLeft")  { e.preventDefault(); prevBtn?.click(); }
+    if (e.key === "Escape")     { modal.style.display = "none"; stopAutoSlide(); }
+  });
+
+  // initialize lazy: preload first image to avoid blank
+  showImage(currentIndex);
+});
+</script>
+<script src="script.js"></script>
 </body>
 </html>

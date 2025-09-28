@@ -6,48 +6,441 @@
   <title>Our Story - Burley's</title>
   <meta name="description" content="Discover Burley's Sri Lanka story: how we bring bold Sri Lankan flavours to modern fried chicken." />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@900;700;500;400&family=Roboto:wght@400;500&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="icon" href="images/logo.png" type="image/x-icon">
+  <meta name="robots" content="index, follow" />
+  <meta name="author" content="Burley's" />
+  
   <link rel="stylesheet" href="navstyle.css">
+  
   <style>
-     @import "~@fortawesome/fontawesome-free/css/all.min.css";
-    :root{
-      --bg:#fa9f1b;
-      --card:#ffffff;
-      --muted:#2d2d2d;
-      --text:#111111;
-      --brand:#fa9f1b;
-      --accent:#e8890a;
-      --radius:18px;
-      --shadow:0 10px 30px rgba(0,0,0,.15);
+    :root {
+      --primary: #fa9f1b;
+      --primary-dark: #e8890a;
+      --primary-light: #fbb955;
+      --surface: #ffffff;
+      --surface-dark: #1a1a1a;
+      --text-primary: #0f0f0f;
+      --text-secondary: #525252;
+      --text-muted: #737373;
+      --border: #e5e5e5;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.05);
+      --shadow-md: 0 4px 20px rgba(0,0,0,0.08);
+      --shadow-lg: 0 20px 40px rgba(0,0,0,0.12);
+      --radius-sm: 8px;
+      --radius-md: 16px;
+      --radius-lg: 24px;
+      --gradient: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+      --gradient-subtle: linear-gradient(135deg, #fef3e2 0%, #fff7ed 100%);
     }
 
-/* Prevent text selection */
-.story-section{
-    user-select: none;       /* Standard */
-    -webkit-user-select: none; /* Safari/Chrome */
-    -moz-user-select: none;   /* Firefox */
-    -ms-user-select: none;    /* IE/Edge */
-}
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    *{ box-sizing: border-box; }
-    body{ margin:0; font-family: Inter, sans-serif; background:var(--bg); color:var(--text); }
-    a{ color:inherit; text-decoration:none; }
-    .container{ width:min(1100px,92vw); margin-inline:auto; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      line-height: 1.6;
+      color: var(--text-primary);
+      background: #fafafa;
+      overflow-x: hidden;
+    }
 
-    .story-section{ padding:80px 0; display:flex; flex-wrap:wrap; gap:40px; }
-    .story-text{ flex:1 1 500px; }
-    h1{ font-size: clamp(36px, 4vw, 56px); margin:0 0 16px; color:#111; font-weight:800; }
-    p.lead{ color:var(--muted); font-size:18px; line-height:1.6; }
-    .story-card{ background:var(--card); border-radius:var(--radius); padding:24px; box-shadow:var(--shadow); flex:1 1 400px; border:1px solid rgba(0,0,0,.08); }
-    .tag{ display:inline-block; font-size:11px; font-weight:700; text-transform:uppercase; color:#fff; background:#111; padding:6px 10px; border-radius:999px; }
-    ul{ padding-left:18px; color:var(--muted); }
-    ul li{ margin-bottom:8px; }
-    footer{ padding:40px 0; border-top:1px solid rgba(0,0,0,.08); color:var(--muted); font-size:14px; }
-    footer a{ color:#111; font-weight:500; }
-    footer a:hover{ text-decoration:underline; }
+    /* Hero Section */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      position: relative;
+      background: var(--gradient);
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="20" cy="20" r="2" fill="rgba(255,255,255,0.1)"/><circle cx="80" cy="40" r="1.5" fill="rgba(255,255,255,0.08)"/><circle cx="60" cy="80" r="1" fill="rgba(255,255,255,0.06)"/><circle cx="30" cy="70" r="1.2" fill="rgba(255,255,255,0.04)"/></svg>');
+      animation: float 20s infinite linear;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0) rotate(0deg); }
+      100% { transform: translateY(-100vh) rotate(360deg); }
+    }
+
+    .hero-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 2;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .hero-text h1 {
+      font-size: clamp(3rem, 6vw, 5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      margin-bottom: 1.5rem;
+      color: white;
+      letter-spacing: -0.02em;
+    }
+
+    .hero-text p {
+      font-size: 1.25rem;
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 2rem;
+      font-weight: 400;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 2rem;
+      margin-top: 2rem;
+    }
+
+    .stat {
+      text-align: center;
+      color: white;
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 800;
+      display: block;
+    }
+
+    .stat-label {
+      font-size: 0.875rem;
+      opacity: 0.8;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .hero-visual {
+      position: relative;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-card {
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      width: 100%;
+      max-width: 400px;
+      transform: rotate(5deg);
+      transition: transform 0.3s ease;
+    }
+
+    .hero-card:hover {
+      transform: rotate(0deg) scale(1.02);
+    }
+
+    .hero-card h3 {
+      color: white;
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      font-weight: 700;
+    }
+
+    .hero-card p {
+      color: rgba(255, 255, 255, 0.9);
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-features {
+      list-style: none;
+    }
+
+    .hero-features li {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 0.75rem;
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .hero-features i {
+      color: rgba(255, 255, 255, 0.8);
+      width: 20px;
+    }
+
+    /* Story Section */
+    .story-section {
+      padding: 6rem 0;
+      position: relative;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 2rem;
+    }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+
+    .story-content h2 {
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 800;
+      margin-bottom: 1.5rem;
+      color: var(--text-primary);
+      line-height: 1.2;
+    }
+
+    .story-content .subtitle {
+      font-size: 1.125rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+      line-height: 1.7;
+    }
+
+    .story-highlights {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .highlight {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: var(--gradient-subtle);
+      border-radius: var(--radius-md);
+      border-left: 4px solid var(--primary);
+    }
+
+    .highlight-icon {
+      width: 48px;
+      height: 48px;
+      background: var(--gradient);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 1.25rem;
+    }
+
+    .highlight-text h4 {
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+      color: var(--text-primary);
+    }
+
+    .highlight-text p {
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    .story-card {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      padding: 2.5rem;
+      box-shadow: var(--shadow-lg);
+      border: 1px solid var(--border);
+      position: sticky;
+      top: 6rem;
+    }
+
+    .story-card .tag {
+      display: inline-block;
+      background: var(--gradient);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 999px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 1.5rem;
+    }
+
+    .story-card h3 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .story-card p {
+      color: var(--text-secondary);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .story-timeline {
+      border-left: 2px solid var(--primary);
+      padding-left: 1.5rem;
+      margin-left: 1rem;
+    }
+
+    .timeline-item {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      left: -1.75rem;
+      top: 0.25rem;
+      width: 12px;
+      height: 12px;
+      background: var(--primary);
+      border-radius: 50%;
+      border: 3px solid white;
+      box-shadow: 0 0 0 2px var(--primary);
+    }
+
+    .timeline-year {
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 1.125rem;
+    }
+
+    .timeline-text {
+      color: var(--text-secondary);
+      font-size: 0.925rem;
+      margin-top: 0.25rem;
+    }
+
+    /* Values Section */
+    .values-section {
+      padding: 6rem 0;
+      background: var(--gradient-subtle);
+    }
+
+    .values-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+
+    .value-card {
+      background: var(--surface);
+      border-radius: var(--radius-lg);
+      padding: 2rem;
+      text-align: center;
+      box-shadow: var(--shadow-md);
+      border: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+
+    .value-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .value-icon {
+      width: 80px;
+      height: 80px;
+      background: var(--gradient);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 1.5rem;
+      color: white;
+      font-size: 2rem;
+    }
+
+    .value-card h3 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .value-card p {
+      color: var(--text-secondary);
+      line-height: 1.6;
+    }
+
+    /* Footer */
+    .footer {
+      background: var(--surface-dark);
+      color: white;
+      padding: 3rem 0 2rem;
+      text-align: center;
+    }
+
+    .footer-content {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+    }
+
+    .social-links {
+      display: flex;
+      gap: 1rem;
+    }
+
+    .social-links a {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 1.25rem;
+      transition: all 0.2s ease;
+    }
+
+    .social-links a:hover {
+      color: var(--primary);
+      transform: translateY(-2px);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+
+      .hero-content {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        text-align: center;
+      }
+
+      .hero-stats {
+        justify-content: center;
+      }
+
+      .story-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+
+      .story-card {
+        position: static;
+      }
+
+      .values-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-content {
+        flex-direction: column;
+        gap: 1.5rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -59,7 +452,6 @@
         <img src="images/logo color.png" alt="Burley's Logo">
       </a>
       <button id="hamburger" class="hamburger" type="button" aria-controls="primaryNav" aria-label="Toggle navigation" aria-expanded="false">
-        <span class="sr-only">Toggle navigation</span>
         <i class="fas fa-bars"></i>
       </button>
       <ul class="nav-links" id="primaryNav">
@@ -91,48 +483,269 @@
     </nav>
   </header>
 
-
-  <!-- Our Story Section -->
-  <section class="container story-section">
-    <div class="story-text">
-      <div class="tag">Our Story</div>
-      <h1>From Island Spice to Crispy, Golden Joy</h1>
-      <p class="lead">Burley's began with a simple promise: take the boldness of Sri Lankan flavour — fragrant Ceylon spices, lime, garlic, curry leaves — and build a modern fried chicken experience around it. No shortcuts. No compromise. Just craveable crunch with soul.</p>
-      <ul>
-        <li>Signature Ceylon spice blend inspired by island kitchens</li>
-        <li>Fried-to-order for peak crunch</li>
-        <li>Community-first mindset — sourcing & hiring locally</li>
-      </ul>
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1>From Island Spice to Crispy, Golden Joy</h1>
+        <p>Burley's began with a simple promise: take the boldness of Sri Lankan flavour and build a modern fried chicken experience around it.</p>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-number">2020</span>
+            <span class="stat-label">Founded</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">100%</span>
+            <span class="stat-label">Halal</span>
+          </div>
+          <div class="stat">
+            <span class="stat-number">Local</span>
+            <span class="stat-label">Community</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-card">
+          <h3>Our Promise</h3>
+          <p>Bold Sri Lankan flavors meet modern fried chicken perfection.</p>
+          <ul class="hero-features">
+            <li><i class="fas fa-check"></i> Ceylon spice blend</li>
+            <li><i class="fas fa-check"></i> Fried-to-order freshness</li>
+            <li><i class="fas fa-check"></i> Community-first approach</li>
+          </ul>
+        </div>
+      </div>
     </div>
-    <div class="story-card" aria-label="Story Highlights">
-      <p>Burley's is a 100% Halal, Sri Lanka based High-End Fast Food Restaurant founded in 2020, It was a huge transition for us from the Fashion Industry to the Food Industry with no experience at all, We've been testing out recipes & planning menus ever since and it was after much hard work and anticipation that Burley's Officially Opened its doors to the public on the 21st of February, 2022, The menu at Burley's was carefully curated aiming to bring a new level of flavour and quality, To Our Customers. It was merely the passion we had for food that turned into a flaming desire that turned into reality...</p>
+  </section>
+
+  <!-- Story Section -->
+  <section class="story-section">
+    <div class="container">
+      <div class="story-grid">
+        <div class="story-content">
+          <h2>The Journey Begins</h2>
+          <p class="subtitle">What started as a passion project has grown into something extraordinary. Our story is one of bold flavors, community spirit, and the pursuit of crispy perfection.</p>
+          
+          <div class="story-highlights">
+            <div class="highlight">
+              <div class="highlight-icon">
+                <i class="fas fa-seedling"></i>
+              </div>
+              <div class="highlight-text">
+                <h4>Ceylon Spice Heritage</h4>
+                <p>Signature blend inspired by traditional island kitchens</p>
+              </div>
+            </div>
+            
+            <div class="highlight">
+              <div class="highlight-icon">
+                <i class="fas fa-fire"></i>
+              </div>
+              <div class="highlight-text">
+                <h4>Fresh & Crispy</h4>
+                <p>Every piece fried-to-order for peak crunch</p>
+              </div>
+            </div>
+            
+            <div class="highlight">
+              <div class="highlight-icon">
+                <i class="fas fa-heart"></i>
+              </div>
+              <div class="highlight-text">
+                <h4>Community First</h4>
+                <p>Sourcing and hiring locally to support our neighbors</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="story-card">
+          <div class="tag">Our Story</div>
+          <h3>From Fashion to Flavor</h3>
+          <p>Burley's is a 100% Halal, Sri Lanka based High-End Fast Food Restaurant founded in 2020. It was a huge transition for us from the Fashion Industry to the Food Industry with no experience at all.</p>
+          
+          <div class="story-timeline">
+            <div class="timeline-item">
+              <div class="timeline-year">2020</div>
+              <div class="timeline-text">Founded with passion for bold Sri Lankan flavors</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">2021</div>
+              <div class="timeline-text">Perfecting recipes and planning the perfect menu</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">2022</div>
+              <div class="timeline-text">Officially opened doors to the public on February 21st</div>
+            </div>
+            <div class="timeline-item">
+              <div class="timeline-year">Today</div>
+              <div class="timeline-text">Bringing new levels of flavor and quality to customers</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Values Section -->
+  <section class="values-section">
+    <div class="container">
+      <div style="text-align: center; margin-bottom: 3rem;">
+        <h2 style="font-size: clamp(2rem, 4vw, 3rem); font-weight: 800; margin-bottom: 1rem; color: var(--text-primary);">What Drives Us</h2>
+        <p style="font-size: 1.125rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto;">Our values shape every decision we make, from the spices we select to the communities we serve.</p>
+      </div>
+      
+      <div class="values-grid">
+        <div class="value-card">
+          <div class="value-icon">
+            <i class="fas fa-leaf"></i>
+          </div>
+          <h3>Authentic Flavors</h3>
+          <p>We honor Sri Lankan culinary traditions while innovating for modern tastes, creating a unique fusion that's both familiar and exciting.</p>
+        </div>
+        
+        <div class="value-card">
+          <div class="value-icon">
+            <i class="fas fa-users"></i>
+          </div>
+          <h3>Community Impact</h3>
+          <p>Supporting local suppliers, creating jobs, and building connections that strengthen our community one meal at a time.</p>
+        </div>
+        
+        <div class="value-card">
+          <div class="value-icon">
+            <i class="fas fa-award"></i>
+          </div>
+          <h3>Quality Excellence</h3>
+          <p>No shortcuts, no compromises. Every ingredient is carefully selected, every dish prepared with precision and care.</p>
+        </div>
+      </div>
     </div>
   </section>
 
   <!-- Footer -->
-  <footer>
-    <div class="container" style="display:flex; justify-content:space-between; flex-wrap:wrap;">
-      <div>© <span id="year"></span> Burley's. All rights reserved.</div>
-      <div style="display:flex; gap:12px;"><a href="https://www.instagram.com/burleysfoods?igsh=MTltNWJ5c2h2ZDZ1ZQ==">Instagram</a>·<a href="https://www.facebook.com/share/1Um5CkKLTN/">Facebook</a>·<a href="https://www.tiktok.com/@burleysfoods?_t=ZS-8zOsx7wzO8V&_r=1">TikTok</a></div>
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div>© <span id="year">2025</span> Burley's. All rights reserved.</div>
+        <div class="social-links">
+          <a href="https://www.instagram.com/burleysfoods?igsh=MTltNWJ5c2h2ZDZ1ZQ==" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="https://www.facebook.com/share/1Um5CkKLTN/" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+          <a href="https://www.tiktok.com/@burleysfoods?_t=ZS-8zOsx7wzO8V&_r=1" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+        </div>
+      </div>
     </div>
   </footer>
 
-  <script src="script.js"></script>
+  <script src="script.js" defer></script>
   <script>
+    // Update year
     document.getElementById('year').textContent = new Date().getFullYear();
 
+    // Mobile menu toggle
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('primaryNav');
 
-    // 2. Featured Menu Carousel
-const carouselTrack = document.querySelector('.carousel-track');
-const carouselItems = document.querySelectorAll('.carousel-item');
-const prevBtn = document.getElementById('carouselPrev');
-const nextBtn = document.getElementById('carouselNext');
-let carouselIndex = 0;
-let mobileCarouselInterval = null;
+    if (hamburger && navLinks) {
+      hamburger.addEventListener('click', () => {
+        navLinks.classList.toggle('active');
+        const isExpanded = navLinks.classList.contains('active');
+        hamburger.setAttribute('aria-expanded', isExpanded);
+        
+        // Toggle hamburger icon
+        const icon = hamburger.querySelector('i');
+        if (icon) {
+          icon.className = isExpanded ? 'fas fa-times' : 'fas fa-bars';
+        }
+      });
+    }
 
-function isMobile() {
-  return window.innerWidth <= 600;
-}
+     document.addEventListener('DOMContentLoaded', function() {
+      // Your existing code
+      // Close modal functionality
+      function closeModal() {
+        modalOverlay.classList.remove('active');
+        // Stop image carousel when modal closes
+        stopImageCarousel();
+      }
+
+      modalClose.addEventListener('click', closeModal);
+
+      // Close modal when clicking outside
+      modalOverlay.addEventListener('click', function(e) {
+        if (e.target === modalOverlay) {
+          closeModal();
+        }
+      });
+
+      // Close modal and scroll to menu
+      browseMenu.addEventListener('click', function(e) {
+        e.preventDefault();
+        closeModal();
+        setTimeout(() => {
+          document.getElementById('featured-menu').scrollIntoView({
+            behavior: 'smooth'
+          });
+        }, 300);
+      });
+    });
+    
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+      anchor.addEventListener('click', function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({
+            behavior: 'smooth',
+            block: 'start'
+          });
+        }
+      });
+    });
+
+    // Header scroll effect (modified to work with existing navbar)
+    let lastScrollY = window.scrollY;
+    window.addEventListener('scroll', () => {
+      // Let the existing navbar handle its own scroll effects
+      lastScrollY = window.scrollY;
+    });
+
+    // Intersection Observer for animations
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.style.opacity = '1';
+          entry.target.style.transform = 'translateY(0)';
+        }
+      });
+    }, observerOptions);
+
+    // Observe elements for animation
+    document.querySelectorAll('.value-card, .highlight, .story-card').forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(30px)';
+      el.style.transition = 'all 0.6s ease';
+      observer.observe(el);
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+  window.onscroll = function() {
+    // Your existing scroll logic here
+    // Ensure the element you are trying to access is available
+    const myElement = document.getElementById('story'); // Replace 'yourElementId' with the actual ID
+    if (myElement) {
+      // Access the style property only if myElement is not null
+      myElement.style.display = 'block';
+    }
+  };
+});
   </script>
 
 </body>

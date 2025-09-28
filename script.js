@@ -352,8 +352,9 @@ if (reviewNext) reviewNext.addEventListener('click', () => {
         }
       });
 
+    
       // Close modal and scroll to menu
-      browseMenu.addEventListener('click', function(e) {
+      document.addEventListener('DOMContentLoaded', function() {
         e.preventDefault();
         closeModal();
         setTimeout(() => {
@@ -389,29 +390,6 @@ backToTopBtn.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: 'smooth' });
 });
 
-// Modern Zoom functionality for menu modal
-const menuImage = document.getElementById('menuImage');
-const zoomInBtn = document.getElementById('zoomIn');
-const zoomOutBtn = document.getElementById('zoomOut');
-const resetZoomBtn = document.getElementById('resetZoom');
 
-let scale = 1;
 
-zoomInBtn.addEventListener('click', () => {
-    scale = Math.min(scale + 0.1, 3); // Limit max zoom level
-    menuImage.style.transform = `scale(${scale})`;
-    menuImage.style.transition = 'transform 0.3s ease';
-});
-
-zoomOutBtn.addEventListener('click', () => {
-    scale = Math.max(scale - 0.1, 0.5); // Limit min zoom level
-    menuImage.style.transform = `scale(${scale})`;
-    menuImage.style.transition = 'transform 0.3s ease';
-});
-
-resetZoomBtn.addEventListener('click', () => {
-    scale = 1;
-    menuImage.style.transform = 'scale(1)';
-    menuImage.style.transition = 'transform 0.3s ease';
-});
-
+            
